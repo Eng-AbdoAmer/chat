@@ -24,13 +24,13 @@ class Request {
           Map responseBody = jsonDecode(response.body);
           return Right(responseBody);
         } else {
-          showToast(
-              msg: "Error try again  later", backgroundColor: Colors.redAccent);
+          showToast(msg: "Error try again  later");
           return const Left(StatusRequest.serverFailure);
         }
       } catch (e) {
         showToast(
-            msg: "Error try again  later", backgroundColor: Colors.redAccent);
+          msg: "Error try again  later",
+        );
         return const Left(StatusRequest.serverException);
       }
     } else {
@@ -66,8 +66,7 @@ class Request {
           Map responseBody = jsonDecode(response.body);
           return Right(responseBody);
         } else {
-          showToast(
-              msg: "Error try again  later", backgroundColor: Colors.redAccent);
+          showToast(msg: "Error try again  later");
           print(response.statusCode);
           return const Left(StatusRequest.serverFailure);
         }
@@ -76,8 +75,7 @@ class Request {
         return const Left(StatusRequest.offline);
       }
     } catch (e) {
-      showToast(
-          msg: "Error try again  later", backgroundColor: Colors.redAccent);
+      showToast(msg: "Error try again  later");
       return const Left(StatusRequest.serverException);
     }
   }
@@ -98,8 +96,7 @@ class Request {
     if (myRequest.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
-      showToast(
-          msg: "Error try again  later", backgroundColor: Colors.redAccent);
+      showToast(msg: "Error try again  later");
     }
   }
 }

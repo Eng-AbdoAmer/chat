@@ -12,8 +12,7 @@ checkInternet() async {
       return true;
     }
   } on SocketException catch (e) {
-    showToast(
-        msg: "Error try again  later +$e", backgroundColor: Colors.redAccent);
+    showToast(msg: "Error try again  later +$e", isError: true);
     return false;
   }
 }

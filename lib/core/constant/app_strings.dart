@@ -1,4 +1,9 @@
+import 'package:flutter/Material.dart';
+
 class AppString {
+  static final GlobalKey<FormState> formKeyRegister = GlobalKey();
+  static final GlobalKey<FormState> formKeyLoginScreen = GlobalKey();
+  static final GlobalKey<FormState> formKeyForgetPassword = GlobalKey();
   static const String skip = "Skip";
   static const String welcomeTitle = "Welcome To Chat Application";
   static const String welcomeSubTitle =

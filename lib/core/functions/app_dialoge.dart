@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
 import '../shared/helper_meuthods.dart';
@@ -42,3 +43,20 @@ Future<void> appDialog({
   );
 }
 // exit(0); //to close your app
+
+customDialog(
+    {required DialogType dialogType,
+    required String title,
+    required String desc,
+    void Function()? btnOkOnPress}) {
+  AwesomeDialog(
+    dismissOnBackKeyPress: true,
+    dismissOnTouchOutside: false,
+    context: navigatorKey.currentContext!,
+    animType: AnimType.scale,
+    dialogType: dialogType,
+    title: title,
+    desc: desc,
+    btnOkOnPress: btnOkOnPress,
+  ).show();
+}
