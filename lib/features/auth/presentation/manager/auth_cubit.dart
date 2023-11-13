@@ -1,22 +1,16 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:math';
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:bloc/bloc.dart';
-import 'package:chat/core/constant/app_strings.dart';
 import 'package:chat/core/shared/helper_meuthods.dart';
 import 'package:chat/features/auth/data/models/user_model.dart';
-import 'package:chat/features/auth/presentation/pages/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/Material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import '../../../../core/constant/routes.dart';
-import '../../../../core/functions/app_dialoge.dart';
 import '../../../../core/services/cache_helper.dart';
 import '../../../../core/services/locator.dart';
 
@@ -32,6 +26,7 @@ class AuthCubit extends Cubit<AuthState> {
   TextEditingController userPasswordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  // final FirebaseMessaging fireMessaging = FirebaseMessaging.instance;
   bool isEmailVerified = false;
   GlobalKey<FormState> forgetPassword = GlobalKey();
   GlobalKey<FormState> registerKey = GlobalKey();

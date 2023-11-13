@@ -25,3 +25,18 @@ class GetUserSuccessState extends HomeState {
 
   GetUserSuccessState({required this.model});
 }
+
+/* ==============stories State=============*/
+class StoriesSuccessState extends HomeState {
+  final List<StoryModel> model;
+  StoriesSuccessState({required this.model});
+}
+
+class StoriesLoadingState extends HomeState {}
+class StoriesAddSuccessState extends HomeState {}
+
+class StoriesFailedState extends HomeState {
+  final String msg;
+
+  StoriesFailedState({required this.msg});
+}

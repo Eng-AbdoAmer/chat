@@ -1,7 +1,5 @@
 import 'package:chat/config/custom_elevatedbutton.dart';
-import 'package:chat/core/constant/App_images.dart';
 import 'package:chat/core/constant/images_assets.dart';
-import 'package:chat/core/constant/routes.dart';
 import 'package:chat/core/functions/custom_sizebox.dart';
 import 'package:chat/core/functions/show_loading_indicator_f.unction.dart';
 import 'package:chat/core/functions/valid.dart';
@@ -12,7 +10,6 @@ import 'package:chat/features/auth/presentation/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../../../config/custom_textformfield.dart';
 import '../../../../core/constant/app_strings.dart';
 

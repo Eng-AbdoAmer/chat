@@ -7,14 +7,15 @@ import 'package:chat/core/shared/helper_meuthods.dart';
 import 'package:chat/features/auth/data/models/user_model.dart';
 import 'package:chat/features/chat_screen/presentation/cubit/chat_screen_cubit.dart';
 import 'package:chat/features/chat_screen/presentation/widgets/custom_recevied_msg.dart';
+import 'package:chat/features/home_page/data/models/story_model.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 
 class ChatScreen extends StatelessWidget {
-  final UserModel model;
-  const ChatScreen({super.key, required this.model});
+  final UserModel? model;
+  const ChatScreen({super.key, this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +28,11 @@ class ChatScreen extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 20.0,
-              backgroundImage: NetworkImage(model.image!),
+              backgroundImage: NetworkImage(model!.image!),
             ),
             space(0, 10),
             Text(
-              model.name!,
+              model!.name!,
               style: const TextStyle(fontSize: 18, color: AppColors.black),
             )
           ],
@@ -40,12 +41,15 @@ class ChatScreen extends StatelessWidget {
       body: BlocConsumer<ChatScreenCubit, ChatScreenState>(
         listener: (context, state) {
           if (state is ChatScreenNoMessagesState) {
+            print("no messages");
           } else if (state is ChatScreenFailedState) {
             Navigator.pop(context);
             showToast(msg: state.msg);
           } else if (state is ChatScreenSuccessGetAllMessageState) {
+            cubit.messagesList = [];
             cubit.messagesList = state.model;
-          }
+          } else if (state is ChatScreenSuccessState) {
+          } else if (state is ChatScreenLoadingState) {}
         },
         builder: (context, state) {
           if (state is ChatScreenNoMessagesState) {
@@ -61,7 +65,7 @@ class ChatScreen extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
                           return CustomReceviedMsg(
-                              recevedId: model.uId!,
+                              recevedId: model!.email!,
                               model: cubit.messagesList[index]);
                         },
                         separatorBuilder: (context, index) =>
@@ -89,7 +93,7 @@ class ChatScreen extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   print("send");
-                  cubit.addMessage(receiverId: model.email!);
+                  cubit.addMessage(receiverId: model!.email!);
                 },
                 child: Container(
                   height: 50,

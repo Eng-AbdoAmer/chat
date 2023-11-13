@@ -6,7 +6,6 @@ import 'package:chat/features/onboarding_splash/presentation/manager/onboarding_
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'config/bloc_observer/bloc_observer.dart';
 import 'config/theme/theme_manager_light.dart';
 import 'core/services/locator.dart';
@@ -16,11 +15,15 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setUp();
-  Bloc.observer = MyBlocObserver();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyB4XrGRSo_uWUUZ_GeiJCMQY4pADHJxUpw",
+          appId: "1:597299988262:android:909c05fcf87e6eed0163e7",
+          messagingSenderId: "597299988262",
+          projectId: "chat-fc367"));
+  Bloc.observer = MyBlocObserver();
+  setUp();
+
   runApp(const MyApp());
 }
 

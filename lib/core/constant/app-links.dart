@@ -15,7 +15,7 @@ class AppLinks {
   static Map<String, String> myHeadersToNotification = {
     "Content-Type": "application/json",
     "Authorization":
-        "key=AAAA4YCJ-e0:APA91bHmc6zjlN4DO5wVpdG86oJ7dSERXEkjg6-Z_ekrbqvStEYM30mwyV_uoyLVMtZCGYgv8zNJ9kE4H0F6sIWDeWp5NG_E95oKK-SwE4JSqi_JyXTks_9MJlHVbHZgck6Duqd0Gb2-",
+        "key=AAAAixHahyY:APA91bEJ9yibMF2Fp6dKt8CmA9AdLqFGirTSFYW6mLfQ5fcdB8JexQRt-AHi2qwkOo7Hj9Sy92pNg5e6Ezm2VAXXaz9209gGx1D5QjwGH9OAHvw99UkYQNK5kdIvtV-90bguCw6je6v4",
   };
   static String getPlaceSuggestion =
       "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=cairo&types=address&key=${apiKeyGoogleMap}&components=country:eg&sessiontoken=6616156156156506516156";

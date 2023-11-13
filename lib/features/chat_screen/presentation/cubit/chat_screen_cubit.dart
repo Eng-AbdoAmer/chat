@@ -1,9 +1,13 @@
 import 'package:chat/core/services/cache_helper.dart';
 import 'package:chat/core/services/locator.dart';
 import 'package:chat/features/chat_screen/data/models/message_model.dart';
+import 'package:chat/features/home_page/data/models/story_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/constant/app-links.dart';
 part 'chat_screen_state.dart';
 
 class ChatScreenCubit extends Cubit<ChatScreenState> {
@@ -12,6 +16,28 @@ class ChatScreenCubit extends Cubit<ChatScreenState> {
 //Users
   TextEditingController message = TextEditingController();
   String senderId = locator<CacheHelper>().getData(key: "AccountEmail");
+
+  Future<dynamic> sendNotification(
+      {required String token,
+      required String title,
+      required String body}) async {
+    try {
+      Response response = await Dio().post(AppLinks.notificationApi,
+          options: Options(headers: AppLinks.myHeadersToNotification),
+          data: {
+            "to": token,
+            "notification": {"title": title, "body": body},
+            "data": {
+              "hello": "hello",
+              "click_action": "FLUTTER_NOTIFICATION_CLICK"
+            }
+          });
+      print(response.data);
+      return response.data;
+    } on DioException catch (ex) {
+      return ex.message;
+    }
+  }
 
   Future<void> addMessage({required String receiverId}) async {
     messagesList = [];
@@ -52,7 +78,10 @@ class ChatScreenCubit extends Cubit<ChatScreenState> {
       });
 
       emit(ChatScreenSuccessState());
-      //snackBar(true);
+      String token = locator<CacheHelper>().getData(key: "token");
+      String nameProfile = locator<CacheHelper>().getData(key: "nameProfile");
+      sendNotification(title: nameProfile, body: massage, token: token);
+
       print('Message added successfully.');
     } catch (e) {
       emit(ChatScreenFailedState(msg: e.toString()));
@@ -91,4 +120,6 @@ class ChatScreenCubit extends Cubit<ChatScreenState> {
       print(err.toString());
     }
   }
+
+ 
 }

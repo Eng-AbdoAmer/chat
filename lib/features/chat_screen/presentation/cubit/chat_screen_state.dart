@@ -21,3 +21,4 @@ class ChatScreenSuccessGetAllMessageState extends ChatScreenState {
 
   ChatScreenSuccessGetAllMessageState({required this.model});
 }
+

@@ -8,6 +8,7 @@ import 'package:chat/features/auth/presentation/pages/forget_password.dart';
 import 'package:chat/features/auth/presentation/pages/register.dart';
 import 'package:chat/features/auth/presentation/widgets/custom_elevatedbutton.dart';
 import 'package:chat/features/auth/presentation/widgets/custom_text_body.dart';
+import 'package:chat/features/home_page/pages/home_custom.dart';
 import 'package:chat/features/home_page/pages/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
