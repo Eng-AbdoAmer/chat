@@ -1,4 +1,5 @@
 import 'package:chat/core/constant/app_colors.dart';
+import 'package:chat/core/functions/custom_search_delegate.dart';
 import 'package:chat/core/functions/custom_sizebox.dart';
 import 'package:chat/core/functions/show_loading_indicator_f.unction.dart';
 import 'package:chat/core/shared/helper_meuthods.dart';
@@ -31,6 +32,7 @@ class AccountDetails extends StatelessWidget {
         }
         if (state is StoriesSuccessState) {
           cubit.storyModelList = state.model;
+          cubit.addStoryItem();
           navigateTo(page: StoryPage(model: state.model));
         }
         if (state is StoriesFailedState) {
@@ -109,6 +111,17 @@ class AccountDetails extends StatelessWidget {
                     border: Border.all(color: AppColors.white),
                     borderRadius: BorderRadius.circular(10)),
                 child: CustomTextFormField(
+                    onChanged: (v) {
+                      HomeCubit cubit = BlocProvider.of(context);
+                      cubit.searchUsers = cubit.users
+                          .where((element) =>
+                              element.name!.toLowerCase().startsWith(v))
+                          .toList();
+                      cubit.emit(HomeSuccessState());
+                    },
+                    // onTap: (){
+                    //   showSearch(context: context, delegate: CustomSearchDelegate());
+                    // },
                     controller: searchController,
                     hintText: "type any Thing?",
                     prefixIcon: const Icon(

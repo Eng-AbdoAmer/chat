@@ -33,10 +33,48 @@ class StoriesSuccessState extends HomeState {
 }
 
 class StoriesLoadingState extends HomeState {}
+
 class StoriesAddSuccessState extends HomeState {}
 
 class StoriesFailedState extends HomeState {
   final String msg;
 
   StoriesFailedState({required this.msg});
+}
+
+///////////Camera State ///////////////
+class CameraLoadingState extends HomeState {}
+
+class CameraFailedState extends HomeState {
+  final String msg;
+  final bool isProfilePathDet;
+  CameraFailedState({required this.msg, required this.isProfilePathDet});
+}
+
+class CameraSuccessState extends HomeState {
+  final String pathImage;
+  final bool isProfilePathDet;
+
+  CameraSuccessState({required this.pathImage, required this.isProfilePathDet});
+}
+
+/*================= upload image State===============*/
+class UploadImageSuccessState extends HomeState {
+  final String imageUrl;
+  final File file;
+
+  UploadImageSuccessState({
+    required this.imageUrl,
+    required this.file,
+  });
+}
+
+class UploadImageFailedState extends HomeState {
+  final String msg;
+
+  UploadImageFailedState({required this.msg});
+}
+
+class UploadImageLoadingState extends HomeState {
+  UploadImageLoadingState();
 }
