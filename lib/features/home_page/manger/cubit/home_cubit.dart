@@ -41,6 +41,8 @@ class HomeCubit extends Cubit<HomeState> {
   bool isSearching = false;
   final storage = FirebaseStorage.instance;
   final user = FirebaseAuth.instance.currentUser;
+
+  
   Future<void> getUser() async {
     users = [];
     emit(GetUserLoadingState());

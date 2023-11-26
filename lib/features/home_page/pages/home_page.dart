@@ -9,6 +9,7 @@ import 'package:chat/features/chat_screen/presentation/pages/chat_screen.dart';
 import 'package:chat/features/chat_screen/presentation/widgets/item_chat.dart';
 import 'package:chat/features/home_page/manger/cubit/home_cubit.dart';
 import 'package:chat/features/home_page/pages/camera_view.dart';
+import 'package:chat/features/home_page/pages/notification_service.dart';
 import 'package:chat/features/home_page/widgets/account_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -87,7 +88,11 @@ class HomePage extends StatelessWidget {
                       //     imageUrl:
                       //         "https://firebasestorage.googleapis.com/v0/b/chat-fc367.appspot.com/o/staties%2Fdriver3.jpg?alt=media&token=4f816096-6520-483f-aff1-73359dc15b00");
                     },
-                    onPressedNotification: () {},
+                    onPressedNotification: () async {
+                      // await NotificationServices.showNotification(
+                      //     title: "title of New Notification",
+                      //     body: "body of New Notification");
+                    },
                   )),
               SliverToBoxAdapter(
                 child: Container(

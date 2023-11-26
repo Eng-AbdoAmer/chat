@@ -1,5 +1,4 @@
 import 'package:chat/core/constant/app_colors.dart';
-import 'package:chat/core/functions/custom_search_delegate.dart';
 import 'package:chat/core/functions/custom_sizebox.dart';
 import 'package:chat/core/functions/show_loading_indicator_f.unction.dart';
 import 'package:chat/core/shared/helper_meuthods.dart';
