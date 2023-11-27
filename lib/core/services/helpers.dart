@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:chat/core/constant/app_colors.dart';
-import 'package:chat/core/shared/helper_meuthods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

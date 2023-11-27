@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:chat/core/services/cache_helper.dart';
 import 'package:chat/core/services/locator.dart';
 import 'package:chat/features/chat_screen/data/models/message_model.dart';
@@ -27,10 +29,12 @@ class ChatScreenCubit extends Cubit<ChatScreenState> {
           data: {
             "to": token,
             "notification": {"title": title, "body": body},
+            "priority":"high",
             "data": {
               "hello": "hello",
               "click_action": "FLUTTER_NOTIFICATION_CLICK"
-            }
+            },
+            'topic': 'all', // Send to the 'all' topic to target all users
           });
       print(response.data);
       return response.data;
@@ -38,6 +42,8 @@ class ChatScreenCubit extends Cubit<ChatScreenState> {
       return ex.message;
     }
   }
+
+  ///////////////////////////
 
   Future<void> addMessage({required String receiverId}) async {
     messagesList = [];
@@ -120,6 +126,4 @@ class ChatScreenCubit extends Cubit<ChatScreenState> {
       print(err.toString());
     }
   }
-
- 
 }

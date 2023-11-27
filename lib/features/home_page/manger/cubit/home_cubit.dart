@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:path/path.dart' as path;
 
 import 'package:bloc/bloc.dart';
@@ -42,7 +43,6 @@ class HomeCubit extends Cubit<HomeState> {
   final storage = FirebaseStorage.instance;
   final user = FirebaseAuth.instance.currentUser;
 
-  
   Future<void> getUser() async {
     users = [];
     emit(GetUserLoadingState());
@@ -243,5 +243,29 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (e) {
       emit(UploadImageFailedState(msg: e.toString()));
     }
+  }
+
+  listeners() async {
+    await AwesomeNotifications().setListeners(
+      onDismissActionReceivedMethod: (ReceivedAction receivedAction) async {
+        print("onDismissActionReceivedMethod");
+      },
+      onNotificationCreatedMethod:
+          (ReceivedNotification receivedNotification) async {
+        print("onNotificationCreatedMethod");
+      },
+      onNotificationDisplayedMethod:
+          (ReceivedNotification receivedNotification) async {
+        print("onNotificationDisplayedMethod");
+      },
+      onActionReceivedMethod: (ReceivedAction receivedAction) async {
+        print("onActionReceivedMethod");
+        final payload = receivedAction.payload ?? {};
+        if (payload['navigate'] == "true") {
+          //!change page hear important
+          // navigateTo(page: "page");
+        }
+      },
+    );
   }
 }
