@@ -95,6 +95,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: userEmailController.text,
         password: userPasswordController.text,
       );
+
       locator<CacheHelper>()
           .saveData(key: "AccountEmail", value: userEmailController.text);
       emit(LoginSuccessState());
@@ -210,6 +211,8 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> createUser({String? id, required String email}) async {
+    String token = locator<CacheHelper>().getData(key: "token");
+
     emit(CreateUserLoadingState());
     UserModel userModel = UserModel(
       uId: "id",
@@ -220,6 +223,7 @@ class AuthCubit extends Cubit<AuthState> {
       name: nameController.text.trim(),
       password: userPasswordController.text.trim(),
       phone: userPhoneController.text.trim(),
+      fcmToken: token,
     );
     fireStore
         .collection("Users")

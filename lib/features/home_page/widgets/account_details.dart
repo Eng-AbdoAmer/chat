@@ -80,7 +80,7 @@ class AccountDetails extends StatelessWidget {
                         child: IconButton(
                             onPressed: onPressedNotification,
                             icon: const Icon(
-                              Icons.notifications,
+                              Icons.logout,
                               size: 20,
                               color: AppColors.white,
                             )),

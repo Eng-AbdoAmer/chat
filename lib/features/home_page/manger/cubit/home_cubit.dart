@@ -2,18 +2,15 @@ import 'dart:io';
 import 'dart:math';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:path/path.dart' as path;
-
 import 'package:bloc/bloc.dart';
 import 'package:chat/core/constant/app_colors.dart';
 import 'package:chat/core/services/cache_helper.dart';
 import 'package:chat/core/services/locator.dart';
 import 'package:chat/core/shared/helper_meuthods.dart';
 import 'package:chat/features/auth/data/models/user_model.dart';
-import 'package:chat/features/auth/presentation/pages/login.dart';
 import 'package:chat/features/home_page/data/models/story_model.dart';
 import 'package:chat/features/onboarding_splash/presentation/pages/splash_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +28,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   final StoryController controller = StoryController();
   final TextEditingController commentAtStory = TextEditingController();
+  final TextEditingController textAtStory = TextEditingController();
   final TextEditingController searchController = TextEditingController();
   final FirebaseFirestore fireStore = FirebaseFirestore.instance;
   String nameProfile = locator<CacheHelper>().getData(key: "nameProfile") ?? "";
@@ -243,6 +241,20 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (e) {
       emit(UploadImageFailedState(msg: e.toString()));
     }
+  }
+
+  Future<void> getFcmToken({required String receiverEmail}) async {
+   // String emailUser = locator<CacheHelper>().getData(key: "AccountEmail");
+    fireStore
+        .collection("Users")
+        .doc(receiverEmail)
+        .collection("fcm_token")
+        .get()
+        .then((value) {
+          String appTokenFCM =value.docs[0].data()["token"];
+          locator<CacheHelper>().saveData(key:"AppTokenFCM", value:appTokenFCM);
+      print(value.docs[0].data()["token"]);
+    });
   }
 
   listeners() async {

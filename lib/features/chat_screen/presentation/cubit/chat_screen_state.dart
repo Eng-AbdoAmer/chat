@@ -5,6 +5,7 @@ abstract class ChatScreenState {}
 class ChatScreenInitial extends ChatScreenState {}
 
 class ChatScreenLoadingState extends ChatScreenState {}
+class ChatScreenAddLoadingState extends ChatScreenState {}
 
 class ChatScreenNoMessagesState extends ChatScreenState {}
 

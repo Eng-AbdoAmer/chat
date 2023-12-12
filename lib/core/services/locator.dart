@@ -1,9 +1,11 @@
 //ToDo 2:create a git_it locator
 
 import 'package:chat/core/shared/helper_meuthods.dart';
+import 'package:chat/features/auth/data/models/user_model.dart';
 import 'package:chat/features/chat_screen/presentation/pages/chat_screen.dart';
 import 'package:chat/features/home_page/pages/notification.dart';
 import 'package:chat/features/onboarding_splash/presentation/manager/onboarding_cubit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +64,7 @@ Future<void> setUp() async {
   NotificationLocal.init();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   NotificationSettings settings = await messaging.requestPermission();
-
+  final FirebaseFirestore fireStore = FirebaseFirestore.instance;
   FirebaseMessaging.instance.getToken().then((token) {
     print("token====>" + token.toString());
     CacheHelper(locator()).saveData(key: "token", value: token);
@@ -130,6 +132,17 @@ Future<void> setUp() async {
       print("user Sign out!");
     } else {
       print("user Sign in");
+
+      String token = locator<CacheHelper>().getData(key: "token");
+      String senderId = locator<CacheHelper>().getData(key: "AccountEmail");
+      fireStore
+          .collection("Users")
+          .doc(senderId)
+          .collection("fcm_token")
+          .doc()
+          .set({"token": token}).then((value) {
+        print("Successfully updated Token@@@");
+      });
     }
   });
 }

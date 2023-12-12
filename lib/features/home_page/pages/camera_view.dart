@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:chat/config/custom_textformfield.dart';
 import 'package:chat/core/constant/app_colors.dart';
+import 'package:chat/core/constant/routes.dart';
 import 'package:chat/core/functions/custom_sizebox.dart';
 import 'package:chat/core/functions/show_loading_indicator_f.unction.dart';
 import 'package:chat/core/shared/helper_meuthods.dart';
@@ -30,7 +31,9 @@ class CameraView extends StatelessWidget {
                   comment: cubit.commentAtStory.text.trim(),
                   imageUrl: state.imageUrl)
               .then((value) {
-            navigateTo(page: const HomePage());
+            Navigator.pushNamedAndRemoveUntil(
+                context, AppRoutesNamed.homePage, (route) => false);
+            //Navigator.of(context).
           });
         } else if (state is CameraFailedState) {
           cubit.isProfilePathDet = state.isProfilePathDet;

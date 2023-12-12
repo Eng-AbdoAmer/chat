@@ -51,7 +51,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<HomeCubit>(
           create: (BuildContext context) => HomeCubit()
             ..getUser()
-            ..listeners(),
+            ..listeners()
+            ,
         ),
         BlocProvider<ChatScreenCubit>(create: (context) => ChatScreenCubit()),
       ],

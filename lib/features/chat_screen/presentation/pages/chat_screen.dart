@@ -3,6 +3,9 @@ import 'package:chat/core/constant/App_images.dart';
 import 'package:chat/core/constant/app_colors.dart';
 import 'package:chat/core/functions/LoadingIndicator.dart';
 import 'package:chat/core/functions/custom_sizebox.dart';
+import 'package:chat/core/functions/show_loading_indicator_f.unction.dart';
+import 'package:chat/core/services/cache_helper.dart';
+import 'package:chat/core/services/locator.dart';
 import 'package:chat/core/shared/helper_meuthods.dart';
 import 'package:chat/features/auth/data/models/user_model.dart';
 import 'package:chat/features/chat_screen/presentation/cubit/chat_screen_cubit.dart';
@@ -45,10 +48,13 @@ class ChatScreen extends StatelessWidget {
             Navigator.pop(context);
             showToast(msg: state.msg);
           } else if (state is ChatScreenSuccessGetAllMessageState) {
-            cubit.messagesList = [];
+            //cubit.messagesList = [];
             cubit.messagesList = state.model;
-          } else if (state is ChatScreenSuccessState) {
-          } else if (state is ChatScreenLoadingState) {}
+          } else if (state is ChatScreenSuccessState) {}
+          //  else if (state is ChatScreenLoadingState ||
+          //     state is ChatScreenAddLoadingState) {
+          //   return showLoadingIndicator(context);
+          // }
         },
         builder: (context, state) {
           if (state is ChatScreenNoMessagesState) {
@@ -91,8 +97,17 @@ class ChatScreen extends StatelessWidget {
               flex: 1,
               child: InkWell(
                 onTap: () {
-                  print("send");
-                  cubit.addMessage(receiverId: model!.email!);
+                  print("#####send#####");
+                  cubit.addMessage(receiverId: model!.email!).then((value) {
+                    cubit.messagesList.clear();
+                    cubit.getAllMessage(receiverId: model!.email!);
+                    String token =
+                        locator<CacheHelper>().getData(key: "AppTokenFCM");
+                    cubit.sendNotification(
+                        title: model!.name!,
+                        body: cubit.message.text.trim(),
+                        token: token);
+                  });
                 },
                 child: Container(
                   height: 50,

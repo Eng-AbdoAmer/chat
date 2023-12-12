@@ -1,3 +1,4 @@
+import 'package:chat/core/constant/routes.dart';
 import 'package:chat/core/functions/show_loading_indicator_f.unction.dart';
 import 'package:chat/core/shared/helper_meuthods.dart';
 import 'package:chat/features/home_page/data/models/story_model.dart';
@@ -40,12 +41,15 @@ class StoryPage extends StatelessWidget {
               },
               onComplete: () {
                 //Navigator.pop(context);
-                navigateTo(page: const HomePage());
+                Navigator.pushNamedAndRemoveUntil(
+                    context, AppRoutesNamed.homePage, (route) => false);
                 print("Completed a cycle");
               },
               onVerticalSwipeComplete: (direction) {
                 if (direction == Direction.down) {
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, AppRoutesNamed.homePage, (route) => false);
                 }
               },
               progressPosition: ProgressPosition.top,

@@ -1,14 +1,10 @@
-import 'dart:convert';
-
 import 'package:chat/core/services/cache_helper.dart';
 import 'package:chat/core/services/locator.dart';
 import 'package:chat/features/chat_screen/data/models/message_model.dart';
-import 'package:chat/features/home_page/data/models/story_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/constant/app-links.dart';
 part 'chat_screen_state.dart';
 
@@ -29,7 +25,7 @@ class ChatScreenCubit extends Cubit<ChatScreenState> {
           data: {
             "to": token,
             "notification": {"title": title, "body": body},
-            "priority":"high",
+            "priority": "high",
             "data": {
               "hello": "hello",
               "click_action": "FLUTTER_NOTIFICATION_CLICK"
@@ -48,7 +44,7 @@ class ChatScreenCubit extends Cubit<ChatScreenState> {
   Future<void> addMessage({required String receiverId}) async {
     messagesList = [];
     try {
-      emit(ChatScreenLoadingState());
+      emit(ChatScreenAddLoadingState());
       final String massage = message.text.trim();
       MessageModel model = MessageModel(
         dateTime: DateTime.now().toString(),
@@ -84,9 +80,7 @@ class ChatScreenCubit extends Cubit<ChatScreenState> {
       });
 
       emit(ChatScreenSuccessState());
-      String token = locator<CacheHelper>().getData(key: "token");
-      String nameProfile = locator<CacheHelper>().getData(key: "nameProfile");
-      sendNotification(title: nameProfile, body: massage, token: token);
+      //String token = locator<CacheHelper>().getData(key: "token");
 
       print('Message added successfully.');
     } catch (e) {
@@ -98,7 +92,6 @@ class ChatScreenCubit extends Cubit<ChatScreenState> {
 
   List<MessageModel> messagesList = [];
   void getAllMessage({required String receiverId}) async {
-    messagesList = [];
     emit(ChatScreenLoadingState());
     try {
       fireStore
@@ -114,6 +107,7 @@ class ChatScreenCubit extends Cubit<ChatScreenState> {
           print("messageslength zero");
           emit(ChatScreenNoMessagesState());
         } else {
+          messagesList = [];
           event.docs.forEach((element) {
             messagesList.add(MessageModel.fromJson(element.data()));
             print(messagesList.toString());

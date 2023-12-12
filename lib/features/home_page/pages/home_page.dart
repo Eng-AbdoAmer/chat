@@ -10,6 +10,7 @@ import 'package:chat/features/chat_screen/presentation/widgets/item_chat.dart';
 import 'package:chat/features/home_page/manger/cubit/home_cubit.dart';
 import 'package:chat/features/home_page/pages/camera_view.dart';
 import 'package:chat/features/home_page/pages/notification_service.dart';
+import 'package:chat/features/home_page/pages/text_stories_view.dart';
 import 'package:chat/features/home_page/widgets/account_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,7 +80,9 @@ class HomePage extends StatelessWidget {
                         pressImage: () {
                           cubit.viewImage();
                         },
-                        pressText: () {},
+                        pressText: () {
+                          navigateTo(page: const TextView());
+                        },
                       );
                       // cubit.addStories(
                       //     senderEmail: cubit.emailProfile,
@@ -89,9 +92,7 @@ class HomePage extends StatelessWidget {
                       //         "https://firebasestorage.googleapis.com/v0/b/chat-fc367.appspot.com/o/staties%2Fdriver3.jpg?alt=media&token=4f816096-6520-483f-aff1-73359dc15b00");
                     },
                     onPressedNotification: () async {
-                      // await NotificationServices.showNotification(
-                      //     title: "title of New Notification",
-                      //     body: "body of New Notification");
+                      cubit.signOut(context);
                     },
                   )),
               SliverToBoxAdapter(
@@ -108,6 +109,8 @@ class HomePage extends StatelessWidget {
                                   ? cubit.users[index]
                                   : cubit.searchUsers[index],
                               press: () {
+                                cubit.getFcmToken(
+                                    receiverEmail: cubit.users[index].email!);
                                 ChatScreenCubit chatScreenCubit =
                                     BlocProvider.of(context);
                                 chatScreenCubit.getAllMessage(
