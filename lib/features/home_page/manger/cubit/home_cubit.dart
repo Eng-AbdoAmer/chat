@@ -244,15 +244,15 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> getFcmToken({required String receiverEmail}) async {
-   // String emailUser = locator<CacheHelper>().getData(key: "AccountEmail");
+    // String emailUser = locator<CacheHelper>().getData(key: "AccountEmail");
     fireStore
         .collection("Users")
         .doc(receiverEmail)
         .collection("fcm_token")
         .get()
         .then((value) {
-          String appTokenFCM =value.docs[0].data()["token"];
-          locator<CacheHelper>().saveData(key:"AppTokenFCM", value:appTokenFCM);
+      String appTokenFCM = value.docs[0].data()["token"];
+      locator<CacheHelper>().saveData(key: "AppTokenFCM", value: appTokenFCM);
       print(value.docs[0].data()["token"]);
     });
   }

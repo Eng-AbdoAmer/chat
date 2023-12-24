@@ -139,7 +139,7 @@ Future<void> setUp() async {
           .collection("Users")
           .doc(senderId)
           .collection("fcm_token")
-          .doc()
+          .doc("123")
           .set({"token": token}).then((value) {
         print("Successfully updated Token@@@");
       });
